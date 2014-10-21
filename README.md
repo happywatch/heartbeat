@@ -1,9 +1,9 @@
 heartbeat
 ===============
 
-A prototype Apple Watch app for realtime heart monitoring. 
+A prototype Apple Watch app for realtime heart monitoring.
 
-<iframe width="420" height="315" src="//www.youtube.com/embed/4LTvr7QaSIM" frameborder="0" allowfullscreen></iframe>
+[![Play Video on YouTube](http://happy.watch/s/heartbeat-apple-watch-app-youtube-video.jpg)](http://bit.ly/heartbeat-video)
 
 We had a great weekend at the NuPIC (Numenta Platform for Intelligent Computing) Hackathon. 
 
