@@ -15,6 +15,6 @@ I tailored the animations and the user experience for the Apple Watch.
 
 I'm excited about how we can use AI (artificial intelligence) like this in healthcare. I think it will enable us all to understand our bodies and stay healthy.
 
-The Watch Simulator is up on GitHub: bit.ly/watch-sim
+The [Watch Simulator](http://bit.ly/watch-sim) is up on GitHub.
 
-If you're inspired, snag your spot at the first ever WatchKit hackathon: bit.ly/watchkit-hackathon
+If you're inspired, snag your spot at the first ever [WatchKit hackathon](http://bit.ly/watchkit-hackathon).
