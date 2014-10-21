@@ -22,13 +22,9 @@ struct BeatPattern {
             }
         }
     }
-    var image: UIImage {
+    var image: UIImage? {
         get {
-            if let image = UIImage(named: (description + ".png").lowercaseString) {
-                return image
-            } else {
-                return UIImage()
-            }
+            return UIImage(named: (description + ".png").lowercaseString)
         }
     }
     init(){

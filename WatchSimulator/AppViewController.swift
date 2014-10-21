@@ -158,7 +158,9 @@ class AppViewController: UIViewController {
         
         newBeatIcon = currentBeatPattern.icon
         
-        rhythmStripImageView.image = currentBeatPattern.image
+        if let image = currentBeatPattern.image {
+            rhythmStripImageView.image = currentBeatPattern.image
+        }
         
         statusLabel.text = currentBeatPattern.status
         
