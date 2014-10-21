@@ -24,7 +24,11 @@ struct BeatPattern {
     }
     var image: UIImage {
         get {
-            return UIImage(named: (description + ".png").lowercaseString)
+            if let image = UIImage(named: (description + ".png").lowercaseString) {
+                return image
+            } else {
+                return UIImage()
+            }
         }
     }
     init(){
