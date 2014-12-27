@@ -29,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7693160A1A01E63A0035DDEF /* MyPlayground2.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground2.playground; sourceTree = "<group>"; };
 		7696903F19EB08F400F133C8 /* AppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		7696904119EB0FE000F133C8 /* Gradients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		76A65B2119F2F2440026FA20 /* BeatPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPattern.swift; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 				7696903F19EB08F400F133C8 /* AppViewController.swift */,
 				76A65B2119F2F2440026FA20 /* BeatPattern.swift */,
 				76FECB4A19D742CA00639284 /* Main.storyboard */,
+				7693160A1A01E63A0035DDEF /* MyPlayground2.playground */,
 				7696904119EB0FE000F133C8 /* Gradients.swift */,
 				76A65B2319F3190F0026FA20 /* MyPlayground.playground */,
 				76FECB4D19D742CA00639284 /* Images.xcassets */,

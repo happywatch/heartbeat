@@ -2,9 +2,16 @@
 //  WatchAppViewController.swift
 //  WatchSimulator
 //
-//  Created by temporary on 10/12/14.
-//  Copyright (c) 2014 Ben Morrow. All rights reserved.
-//
+Copyright (c) 2014 Ben Morrow. All rights reserved.
+
+Developed by: HappyWatch
+http://happy.watch
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal with the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimers.
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimers in the documentation and/or other materials provided with the distribution.
+Neither the names of HappyWatch, nor the names of its contributors may be used to endorse or promote products derived from this Software without specific prior written permission.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.
 
 import UIKit
 
@@ -14,22 +21,26 @@ class AppViewController: UIViewController {
     
     @IBOutlet weak var bpmLabel: UILabel!
     
-    let shrinkSize = CGFloat(2.0 / 3)
-    
-    let smallSize = CGFloat(20)
-    
-    let switchToNewBeatDelay = 10.0
+    let shrinkFactor = CGFloat(2.0 / 3) // when the heart is beating, this is the size it shrinks to
+  
+    var expandFactor: CGFloat {
+      return 1.0 / shrinkFactor // when the heart is beating, the size it expands to is the inverse of the shrinkFactor
+    }
+  
+    let smallSize = CGFloat(20) // when you tap the heart and it shrinks down to fit in the title bar. This is the size it shrinks to.
+  
+    let switchToNewBeatDelay = 10.0 // number of seconds before simulating a new beat
     
     var beatPaused = false
     
     var newBeatIcon: String? = nil
     
-    let beatPatterns: [[AnyObject?]] = [
-        ["❤️", "Mid-range", "Nominal", 80],
-        ["💜", "Slow", "Nominal", 55],
-        ["💙", "Sedated", "Nominal", 30],
-        ["💚", "Erratic", "Erratic", nil],
-        ["💛", "Fast", "Nominal", 180]]
+    let beatPatterns = [
+        BeatPattern(icon: "❤️", description: "Mid-range", status: "Nominal", bpm: 80),
+        BeatPattern(icon: "💜", description: "Slow", status: "Nominal", bpm: 55),
+        BeatPattern(icon: "💙", description: "Sedated", status: "Nominal", bpm: 30),
+        BeatPattern(icon: "💚", description: "Erratic", status: "Erratic", bpm: nil),
+        BeatPattern(icon: "💛", description: "Fast", status: "Nominal", bpm: 180)]
     
     var currentBeatPattern = BeatPattern()
     
@@ -53,7 +64,7 @@ class AppViewController: UIViewController {
         initAppearance()
         
         self.view.insertSubview(iconLabel, atIndex: 1)
-        iconLabel.transform = CGAffineTransformMakeScale(shrinkSize, shrinkSize)
+        iconLabel.transform = CGAffineTransformMakeScale(shrinkFactor, shrinkFactor)
         
         newBeat()
         beat()
@@ -110,7 +121,7 @@ class AppViewController: UIViewController {
         timerToggle()
         if !beatPaused {
             UIView.animateWithDuration(0.2, delay: 0.0, options: .BeginFromCurrentState, animations: {
-                self.iconLabel.transform = CGAffineTransformMakeScale(self.shrinkSize, self.shrinkSize)
+                self.iconLabel.transform = CGAffineTransformMakeScale(self.shrinkFactor, self.shrinkFactor)
                 self.rhythmStripImageView.alpha = 0
                 self.statusLabel.alpha = 0
                 self.bpmLabel.alpha = 0
@@ -153,8 +164,7 @@ class AppViewController: UIViewController {
             randomBeatPatternIndex = Int(arc4random_uniform(UInt32(beatPatterns.count)))
         }
         lastBeatPatternIndex = randomBeatPatternIndex
-        let beatValues = beatPatterns[randomBeatPatternIndex]
-        currentBeatPattern = BeatPattern(icon: beatValues[0] as String, description: beatValues[1] as String, status: beatValues[2] as String, bpm: beatValues[3] as Int?)
+        currentBeatPattern = beatPatterns[randomBeatPatternIndex]
         
         newBeatIcon = currentBeatPattern.icon
         
@@ -190,16 +200,16 @@ class AppViewController: UIViewController {
         if !beatPaused {
             var duration = 0.0
             if let usableDuration = currentBeatPattern.duration {
-                duration = usableDuration
+                duration = usableDuration // if the duration exists, we use it
             } else {
-                duration = 1 / ( Double(arc4random_uniform(12)) + 1 )
+                duration = 1 / ( Double(arc4random_uniform(12)) + 1 ) // otherwise we generate a random one just this once
             }
             UIView.animateWithDuration(duration / 2, delay: 0.0, options: .CurveEaseInOut, animations: {
-                    self.iconLabel.transform = CGAffineTransformScale(self.iconLabel.transform, 1 / self.shrinkSize, 1 / self.shrinkSize)
+                    self.iconLabel.transform = CGAffineTransformScale(self.iconLabel.transform, self.expandFactor, self.expandFactor)
                 }, completion: { _ in
                     if !self.beatPaused {
                         UIView.animateWithDuration(duration / 2, delay: 0.0, options: .CurveEaseInOut, animations: {
-                            self.iconLabel.transform = CGAffineTransformScale(self.iconLabel.transform, self.shrinkSize, self.shrinkSize)
+                            self.iconLabel.transform = CGAffineTransformScale(self.iconLabel.transform, self.shrinkFactor, self.shrinkFactor)
                             
                             }, completion: { _ in
                                 if let icon = self.newBeatIcon {
